@@ -1,13 +1,10 @@
 from interfaces.ioauth import IOAuth
+from adapters.oauth.oauth_hubspot_adapter import  OAuthHubspotAdapter
 
 
 class OauthHandler:
 
-    oauth: IOAuth = None
-
-    @staticmethod
-    def set_oauth(oauth: IOAuth):
-        OauthHandler.oauth = oauth
+    oauth: IOAuth = OAuthHubspotAdapter()
 
     @staticmethod
     def get_oauth():
