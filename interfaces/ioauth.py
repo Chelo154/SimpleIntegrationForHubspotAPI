@@ -8,7 +8,7 @@ class IOAuth(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def get_tokens(self):
+    def get_tokens(self, code):
         pass
 
     @abc.abstractmethod
