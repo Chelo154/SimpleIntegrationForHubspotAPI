@@ -4,6 +4,7 @@ import requests
 
 class OAuthHubspotAdapter(IOAuth):
 
+
     def __init__(self):
         self.url = 'https://app.hubspot.com/oauth/authorize'
         self.tokens_url = 'https://api.hubapi.com/oauth/v1/token'
@@ -41,6 +42,19 @@ class OAuthHubspotAdapter(IOAuth):
 
     def refresh_token(self):
         pass
+
+    def get_username(self, access_token):
+        metadata_url = 'https://api.hubapi.com/oauth/v1/access-tokens/'
+
+        complete_url = f'{metadata_url}{access_token}'
+
+        response = requests.get(complete_url)
+
+        response = response.json()
+
+        username = response['user']
+
+        return username
 
 
 pass

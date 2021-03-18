@@ -11,9 +11,9 @@ class DealJSONSerializer(json.JSONEncoder):
                 'name': o.name,
                 'stage': o.stage,
                 'close_date': o.close_date,
-                'amount' : o.amount,
+                'amount': o.amount,
                 'deal_type': o.deal_type
             }
-            return  serial
+            return serial
         except AttributeError:
             return  super().default(o)

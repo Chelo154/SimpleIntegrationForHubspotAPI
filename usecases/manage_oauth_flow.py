@@ -21,7 +21,9 @@ class ManageOAuthFlow:
 
         access_token, refresh_token = self.oauth.get_tokens(user_code)
 
-        new_user = User(user_code, access_token, refresh_token)
+        username = self.oauth.get_username(access_token)
+
+        new_user = User(user_code, username, access_token, refresh_token)
 
         ok = self.user_repo.insert(new_user)
 

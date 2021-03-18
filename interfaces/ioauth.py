@@ -15,5 +15,8 @@ class IOAuth(metaclass=abc.ABCMeta):
     def refresh_token(self):
         pass
 
+    @abc.abstractmethod
+    def get_username(self, access_token):
+        pass
 
 pass
