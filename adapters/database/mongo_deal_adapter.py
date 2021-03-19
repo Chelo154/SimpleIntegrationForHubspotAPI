@@ -22,16 +22,18 @@ class MongoDealAdapter(IRepository):
         self.connect()
 
         for data in data_collection:
-            deal = DealEntity(
-                id= data.id,
-                name=data.name,
-                stage=data.stage,
-                close_date=data.close_date,
-                amount=float(data.amount),
-                deal_type=data.deal_type
-            )
-            print(deal.amount)
-            deal.save()
+            print(data)
+            if not self.exists(data.id):
+                deal = DealEntity(
+                    identifier=data.id,
+                    name=data.name,
+                    stage=data.stage,
+                    close_date=data.close_date,
+                    amount=data.amount,
+                    deal_type=data.deal_type,
+                    username=data.user.username
+                )
+                deal.save()
 
         disconnect()
 
@@ -42,6 +44,7 @@ class MongoDealAdapter(IRepository):
         deals = list()
 
         for data in data_rows:
+
             deals.append(data_rows.parse())
 
         disconnect()
@@ -51,6 +54,7 @@ class MongoDealAdapter(IRepository):
         pass
 
     def update(self, identifier, data):
+
         pass
 
     def delete(self, identifier, data):
@@ -59,6 +63,8 @@ class MongoDealAdapter(IRepository):
     def __init__(self):
         pass
 
-
+    def exists(self, identifier):
+        return DealEntity.objects(identifier=identifier).count() != 0
+        pass
 
 pass

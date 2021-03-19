@@ -5,12 +5,13 @@ from domain.deal import Deal
 
 class DealEntity(Document):
 
-    id = UUIDField('id')
-    name = StringField('name')
-    stage = StringField('stage')
-    close_date = StringField('close_date')
-    amount = FloatField('amount')
-    deal_type = StringField('deal_type')
+    identifier = IntField(unique=True)
+    name = StringField()
+    stage = StringField()
+    close_date = StringField()
+    amount = FloatField()
+    deal_type = StringField()
+    username = StringField()
     meta = {'collection': 'deals'}
 
     def parse(self):

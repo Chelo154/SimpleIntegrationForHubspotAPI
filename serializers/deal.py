@@ -1,5 +1,5 @@
 import json
-from domain.deal import  Deal
+from domain.deal import Deal
 
 
 class DealJSONSerializer(json.JSONEncoder):
@@ -12,8 +12,9 @@ class DealJSONSerializer(json.JSONEncoder):
                 'stage': o.stage,
                 'close_date': o.close_date,
                 'amount': o.amount,
-                'deal_type': o.deal_type
+                'deal_type': o.deal_type,
+                "user": o.user.username
             }
             return serial
         except AttributeError:
-            return  super().default(o)
+            return super().default(o)

@@ -2,6 +2,8 @@ from handlers.repository_handler import RepositoryHandler
 from handlers.deal_api_handler import DealAPIHandler
 from usecases.get_deals import GetDeals
 from serializers.deal import DealJSONSerializer
+from errors.access_token_error import AccessTokenError
+from controllers.oauth_controller import OAuthController
 import json
 
 
@@ -16,8 +18,14 @@ class DealsController:
         pass
 
     def get_deals(self, username):
-        deals = self.usecase.get_user_deals(username)
-        return json.dumps(deals, cls=DealJSONSerializer)
+        try:
+            deals = self.usecase.get_user_deals(username)
+            return json.dumps(deals, cls=DealJSONSerializer)
+
+        except AccessTokenError:
+            OAuthController().refresh_token(username)
+            return self.get_deals(username)
+
 
 
 pass

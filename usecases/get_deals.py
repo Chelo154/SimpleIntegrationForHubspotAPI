@@ -15,7 +15,7 @@ class GetDeals:
 
         user = self.user_repo.get_one(username)
 
-        deals = self.deals_api.get_deals(user.access_token)
+        deals = self.deals_api.get_deals(user)
 
         self.deals_repo.insert_many(deals)
 

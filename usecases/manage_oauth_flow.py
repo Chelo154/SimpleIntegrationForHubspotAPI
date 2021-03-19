@@ -32,6 +32,14 @@ class ManageOAuthFlow:
         else:
             return None
 
+    def refresh_token(self,username):
+
+        user = self.user_repo.get_one(username)
+
+        access_token = self.oauth.refresh_token(user.refresh_token)
+
+        self.user_repo.update(username, {'access_token': access_token})
+
 
 pass
 

@@ -12,7 +12,7 @@ class IOAuth(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def refresh_token(self):
+    def refresh_token(self,refresh_token):
         pass
 
     @abc.abstractmethod

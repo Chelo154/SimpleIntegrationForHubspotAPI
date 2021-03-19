@@ -32,7 +32,7 @@ class MongoUserAdapter(IRepository):
         if self.exists(data.username):
             print("USER ALREADY EXIST -- UPDATING TOKENS")
 
-            user = self.get_one(data.username)
+            user = UserEntity.objects(username__exact=data.username)
             user.update(access_token=data.access_token, refresh_token=data.refresh_token)
 
             print("SUCCESSFUL UPDATE")
@@ -48,7 +48,14 @@ class MongoUserAdapter(IRepository):
         pass
 
     def update(self, identifier, data):
-        pass
+
+        self.connect()
+        user = UserEntity.objects(username__exact=identifier)[0]
+
+        if 'access_token' in data:
+            user.update(access_token=data['access_token'])
+
+        print("SUCCESSFUL UPDATE")
 
     def delete(self, identifier, data):
         pass

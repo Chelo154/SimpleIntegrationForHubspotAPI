@@ -4,13 +4,12 @@ import requests
 
 class OAuthHubspotAdapter(IOAuth):
 
-
     def __init__(self):
         self.url = 'https://app.hubspot.com/oauth/authorize'
         self.tokens_url = 'https://api.hubapi.com/oauth/v1/token'
         self.client_id = 'a0fa566f-6a52-4379-96af-d4e56e59f417'
         self.scope = 'contacts'
-        self.redirect_uri = 'https://71d450ef4a37.ngrok.io/api/oauth/callback'
+        self.redirect_uri = 'https://5eec6e788268.ngrok.io/api/oauth/callback'
         self.client_secret = '51f551f9-a0b2-4a2f-a2e7-483b6155c146'
 
     def get_oauth_url(self):
@@ -40,8 +39,23 @@ class OAuthHubspotAdapter(IOAuth):
 
         return access_token, refresh_token
 
-    def refresh_token(self):
-        pass
+    def refresh_token(self,refresh_token):
+
+        form_data = {
+            'grant_type': 'refresh_token',
+            'client_id': self.client_id,
+            'client_secret': self.client_secret,
+            'refresh_token': refresh_token
+
+        }
+
+        response = requests.post(self.tokens_url, data=form_data)
+
+        response = response.json()
+
+        access_token = response['access_token']
+
+        return access_token
 
     def get_username(self, access_token):
         metadata_url = 'https://api.hubapi.com/oauth/v1/access-tokens/'

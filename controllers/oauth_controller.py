@@ -20,5 +20,8 @@ class OAuthController:
         user = self.use_case.fill_user_data(user_code)
         return json.dumps(user, cls=UserJsonEncoder)
 
+    def refresh_token(self,username):
+        return self.use_case.refresh_token(username)
+
 
 pass
