@@ -3,14 +3,16 @@ from interfaces.iparseable import IParseable
 from domain.deal import Deal
 
 
-class DealEntity(Document, IParseable):
+class DealEntity(Document):
 
-    id = UUIDField('id')
-    name = StringField('name')
-    stage = StringField('stage')
-    closeDate = StringField('close_date')
-    amount = FloatField('amount')
-    dealType = StringField('deal_type')
+    identifier = IntField(unique=True)
+    name = StringField()
+    stage = StringField()
+    close_date = StringField()
+    amount = FloatField()
+    deal_type = StringField()
+    username = StringField()
+    meta = {'collection': 'deals'}
 
     def parse(self):
         return Deal.from_dict(dict=self.to_mongo())

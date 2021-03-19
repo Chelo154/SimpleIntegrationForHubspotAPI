@@ -8,7 +8,15 @@ class IRepository(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def get(self):
+    def insert_many(self, data_collection):
+        pass
+
+    @abc.abstractmethod
+    def get_all(self):
+        pass
+
+    @abc.abstractmethod
+    def get_one(self,identifier):
         pass
 
     @abc.abstractmethod

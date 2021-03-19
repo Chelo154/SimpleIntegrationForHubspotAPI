@@ -1,10 +1,12 @@
 import dataclasses
+from domain.user import User
 
 
 @dataclasses.dataclass
 class Deal:
 
     id: int
+    user: User
     name: str
     stage: str
     close_date: str
